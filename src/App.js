@@ -1,22 +1,31 @@
-import React, { Component,Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import './App.css';
 
 const Temp = (props) => {
-  return (
-    <>
-      {
-        props.greetings === 'hi'
-        ? <Fragment>&lt;div&gt;{props.greetings}&lt;/div&gt;</Fragment>
-        :  props.greetings
-      }
-    </>
-  );
+  return (<div>{props.val}</div>)
 }
-class App extends Component {
+
+class App extends PureComponent {
+  state = {
+    val: 1,
+  };
+
+  componentDidMount(){
+    setInterval(()=>{
+      this.setState(()=>{
+        return { val: 1}
+      })
+    }, 2000)
+  }
+  // // prevent unnecessary re-renders when data is still the same
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return ( this.state.val === nextState.val ? false : true ); 
+  // };
+
   render() {
     return (
       <div className="App">
-        <Temp greetings="hi"/>
+        <Temp val={this.state.val}/>
       </div>
     );
   };
